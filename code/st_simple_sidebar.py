@@ -8,8 +8,7 @@ import altair as alt
 @st.cache()
 def load_data():
     src_file = Path.cwd() / "data" / "raw" / "EPA_fuel_economy_summary.csv"
-    raw_df = pd.read_csv(src_file)
-    return raw_df
+    return pd.read_csv(src_file)
 
 
 # Load data and determine valid values
@@ -35,12 +34,7 @@ year_range = st.sidebar.slider(
 
 # Filter data based on inputs
 year_filter = df["year"].between(year_range[0], year_range[1])
-if "ALL" in make:
-    # Dummy filter to include all makes
-    make_filter = True
-else:
-    make_filter = df["make"].isin(make)
-
+make_filter = True if "ALL" in make else df["make"].isin(make)
 plot_df = df[make_filter & year_filter]
 
 avg_fuel_economy = plot_df["fuelCost08"].mean().round(0)

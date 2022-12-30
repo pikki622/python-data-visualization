@@ -93,7 +93,7 @@ def update_figure(year_range, transmission_list, selectedData, n_clicks):
     global total_clicks
     filtered_df = df[df["year"].between(year_range[0], year_range[1])
                      & df["transmission"].isin(transmission_list)]
-    
+
     fig_hist = px.histogram(
         filtered_df,
         x="fuelCost08",
@@ -101,7 +101,7 @@ def update_figure(year_range, transmission_list, selectedData, n_clicks):
         labels={"fuelCost08": "Annual Fuel Cost"},
         nbins=40,
     )
-    
+
     fig_scatter = px.scatter(
         filtered_df,
         x="displ",
@@ -117,12 +117,10 @@ def update_figure(year_range, transmission_list, selectedData, n_clicks):
         fig_scatter.update_traces(selected_marker_color=None)
         total_clicks = n_clicks
         selectedData = None
-    
+
     if selectedData:
         points = selectedData["points"]
-        index_list = [
-            points[x]["customdata"][0] for x in range(0, len(points))
-        ]
+        index_list = [points[x]["customdata"][0] for x in range(len(points))]
         filtered_df = df[df.index.isin(index_list)]
         num_points_label = f"Showing {len(points)} selected points:"
     else:

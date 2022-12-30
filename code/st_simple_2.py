@@ -7,8 +7,7 @@ import altair as alt
 @st.cache()
 def load_data():
     src_file = Path.cwd() / "data" / "raw" / "EPA_fuel_economy_summary.csv"
-    raw_df = pd.read_csv(src_file)
-    return raw_df
+    return pd.read_csv(src_file)
 
 # Load data and determine valid values
 df = load_data()
